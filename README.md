@@ -2,6 +2,10 @@
 
 A module for Quill rich text editor to allow images to be pasted and drag/dropped into the editor.
 
+## Demo
+
+[Plunker](https://plnkr.co/edit/ubVmPkBjqQESsefM3JrT?p=preview)
+
 ## Usage
 
 ### Webpack/ES6
