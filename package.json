@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kendsnyder/quill-image-drop-module.git"
+    "url": "git+https://github.com/kensnyder/quill-image-drop-module.git"
   },
   "keywords": [
     "quill",
@@ -24,9 +24,9 @@
   "author": "@kensnyder",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kendsnyder/quill-image-drop-module/issues"
+    "url": "https://github.com/kensnyder/quill-image-drop-module/issues"
   },
-  "homepage": "https://github.com/kendsnyder/quill-image-drop-module#readme",
+  "homepage": "https://github.com/kensnyder/quill-image-drop-module#readme",
   "devDependencies": {
     "babel-cli": "^6.24.0",
     "babel-preset-env": "^1.2.2",
