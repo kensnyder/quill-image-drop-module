@@ -42,3 +42,25 @@ var quill = new Quill(editor, {
     }
 });
 ```
+
+### Options
+Possiblity to automatically upload your images.
+
+```javascript
+imageDrop: {
+    // direct upload configuration
+    uploadImage: {
+        url: "", // server url
+        method: "POST", // change query method, default 'POST' 
+        headers: {}, // add custom headers, example { token: 'your-token'}
+        // personalize successful callback and call next function to insert new url to the editor
+        callbackOK: (serverResponse, next) => {
+            next(serverResponse);   
+        },
+        // personalize failed callback
+        callbackKO: (serverError) => {
+            alert(serverError);
+        }
+    }
+} 
+```
