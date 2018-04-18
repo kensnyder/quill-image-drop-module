@@ -13,6 +13,8 @@ export class ImageDrop {
 	constructor(quill, options = {}) {
 		// save the quill reference
 		this.quill = quill;
+		// save options
+		this.options = options;
 		// bind handlers to this instance
 		this.handleDrop = this.handleDrop.bind(this);
 		this.handlePaste = this.handlePaste.bind(this);
@@ -35,7 +37,7 @@ export class ImageDrop {
 					selection.setBaseAndExtent(range.startContainer, range.startOffset, range.startContainer, range.startOffset);
 				}
 			}
-			this.readFiles(evt.dataTransfer.files, this.insert.bind(this));
+			this.readFiles(evt.dataTransfer.files, this.uploadImage.bind(this));
 		}
 	}
 
@@ -50,11 +52,10 @@ export class ImageDrop {
 				if (selection) {
 					// we must be in a browser that supports pasting (like Firefox)
 					// so it has already been placed into the editor
-				}
-				else {
+				} else {
 					// otherwise we wait until after the paste when this.quill.getSelection()
 					// will return a valid index
-					setTimeout(() => this.insert(dataUrl), 0);
+					setTimeout(() => this.uploadImage(dataUrl), 0);
 				}
 			});
 		}
@@ -93,6 +94,67 @@ export class ImageDrop {
 				reader.readAsDataURL(blob);
 			}
 		});
+	}
+
+	/**
+	 * Upload image with option "upload"
+	 * @param {String} dataUrl image to insert
+	 */
+	uploadImage(dataUrl) {
+		// check if we need to upload image
+		if (this.options.hasOwnProperty('uploadImage')) {
+			const uploadImageOptions = this.options.uploadImage,
+				url = uploadImageOptions.url || 'your-url.com',
+				method = uploadImageOptions.method || 'POST',
+				headers = uploadImageOptions.headers || {},
+				callbackOK = uploadImageOptions.callbackOK || this.uploadImageCallbackOK.bind(this),
+				callbackKO = uploadImageOptions.callbackKO || this.uploadImageCallbackKO.bind(this);
+
+			const xhr = new XMLHttpRequest();
+			// init http query
+			xhr.open(method, uploadImageOptions.url, true);
+			// add custom headers
+			for (var index in headers) {
+				xhr.setRequestHeader(index, headers[index]);
+			}
+
+			// listen callback
+			xhr.onload = () => {
+				if (xhr.status === 200) {
+					callbackOK(JSON.parse(xhr.responseText), this.insert.bind(this));
+				} else {
+					callbackKO({
+						code: xhr.status,
+						type: xhr.statusText,
+						body: xhr.responseText
+					});
+				}
+			};
+
+			xhr.send(JSON.stringify({
+				image: dataUrl
+			}));
+
+		} else {
+			// default insert data url
+			this.insert(dataUrl);
+		}
+	}
+
+	/**
+	 * callback on image upload successful
+	 * @param {Any} response http response
+	 */
+	uploadImageCallbackOK(response, next) {
+		next(response);
+	}
+
+	/**
+	 * callback on image upload failed
+	 * @param {Any} error http error
+	 */
+	uploadImageCallbackKO(error) {
+		alert(error);
 	}
 
 }
