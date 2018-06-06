@@ -34,6 +34,7 @@
     "uglify-js": "^2.8.13"
   },
   "dependencies": {
-    "quill": "^1.2.2"
+    "quill": "^1.2.2",
+    "rx": "^4.1.0"
   }
 }

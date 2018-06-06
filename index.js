@@ -13,6 +13,7 @@ export class ImageDrop {
 	constructor(quill, options = {}) {
 		// save the quill reference
 		this.quill = quill;
+		this.options = options;
 		// bind handlers to this instance
 		this.handleDrop = this.handleDrop.bind(this);
 		this.handlePaste = this.handlePaste.bind(this);
@@ -81,6 +82,9 @@ export class ImageDrop {
 				// file is not an image
 				// Note that some file formats such as psd start with image/* but are not readable
 				return;
+			}
+			if(this.options.handler){
+				console.log("I'm handler!");
 			}
 			// set up file reader
 			const reader = new FileReader();
