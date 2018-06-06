@@ -83,8 +83,11 @@ export class ImageDrop {
 				// Note that some file formats such as psd start with image/* but are not readable
 				return;
 			}
-			if(this.options.handler){
+			if(this.options.handler && typeof this.options.handler === "function"){
 				console.log("I'm handler!");
+                console.log(typeof file);
+                console.log(file);
+                // this.options.handler
 			}
 			// set up file reader
 			const reader = new FileReader();
