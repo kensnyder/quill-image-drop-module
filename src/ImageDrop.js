@@ -110,7 +110,7 @@ export class ImageDrop {
 	 * detect IE
 	 * returns version of IE or false, if browser is not Internet Explorer
 	 */
-	static ieIE() {
+	static isIE() {
 		const ua = window.navigator.userAgent;
 
 		const msie = ua.indexOf('MSIE ');
@@ -124,12 +124,6 @@ export class ImageDrop {
 			// IE 11 => return version number
 			var rv = ua.indexOf('rv:');
 			return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
-		}
-
-		const edge = ua.indexOf('Edge/');
-		if (edge > 0) {
-			// Edge (IE 12+) => return version number
-			return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
 		}
 
 			// other browser
