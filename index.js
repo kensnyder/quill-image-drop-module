@@ -13,6 +13,7 @@ export class ImageDrop {
 	constructor(quill, options = {}) {
 		// save the quill reference
 		this.quill = quill;
+		this.options = options;
 		// bind handlers to this instance
 		this.handleDrop = this.handleDrop.bind(this);
 		this.handlePaste = this.handlePaste.bind(this);
@@ -80,6 +81,11 @@ export class ImageDrop {
 			if (!file.type.match(/^image\/(gif|jpe?g|a?png|svg|webp|bmp|vnd\.microsoft\.icon)/i)) {
 				// file is not an image
 				// Note that some file formats such as psd start with image/* but are not readable
+				return;
+			}
+			// defer to custom file reader handler if specified
+			if (typeof this.options.fileReader === 'function') {
+				this.options.fileReader(file, callback);
 				return;
 			}
 			// set up file reader
