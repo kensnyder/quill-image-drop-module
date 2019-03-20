@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.4 - March 19, 2019
+
+- Allow specifying a custom file reader handler ([PR #17](https://github.com/kensnyder/quill-image-drop-module/pull/17))
+
 ## v1.0.3 - March 29, 2017
 
 - Drop images at mouse coordinates instead of last caret position ([Issue #2](https://github.com/kensnyder/quill-image-drop-module/issues/2))
