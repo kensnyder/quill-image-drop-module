@@ -83,21 +83,23 @@ export class ImageDrop {
 				// Note that some file formats such as psd start with image/* but are not readable
 				return;
 			}
-			// defer to custom file reader handler if specified
-			if (typeof this.options.fileReader === 'function') {
-				this.options.fileReader(file, callback);
+			if (!file.getAsFile) {
+				// object is an item and not a file
 				return;
 			}
-			// set up file reader
+			const blob = file.getAsFile();
+			// defer to custom file reader handler if specified
+			if (typeof this.options.fileReader === 'function') {
+				this.options.fileReader(blob, callback);
+				return;
+			}
+			// otherwise set up file reader
 			const reader = new FileReader();
 			reader.onload = (evt) => {
 				callback(evt.target.result);
 			};
 			// read the clipboard item or file
-			const blob = file.getAsFile ? file.getAsFile() : file;
-			if (blob instanceof Blob) {
-				reader.readAsDataURL(blob);
-			}
+			reader.readAsDataURL(blob);
 		});
 	}
 
