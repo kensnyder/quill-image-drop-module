@@ -84,10 +84,14 @@ export class ImageDrop {
 				return;
 			}
 			if (!file.getAsFile) {
-				// object is an item and not a file
+				// dragged object is not a file
 				return;
 			}
 			const blob = file.getAsFile();
+			if (!(blob instanceof Blob)) {
+				// dragged object is not a file
+				return;
+			}
 			// defer to custom file reader handler if specified
 			if (typeof this.options.fileReader === 'function') {
 				this.options.fileReader(blob, callback);
