@@ -6,6 +6,13 @@ A module for Quill rich text editor to allow images to be pasted and drag/droppe
 
 [Plunker](https://plnkr.co/edit/ubVmPkBjqQESsefM3JrT?p=preview)
 
+## Install
+
+to install it using npm you have to run
+```sh
+npm i quill-image-drop-module
+```
+
 ## Usage
 
 ### Webpack/ES6
